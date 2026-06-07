@@ -1,0 +1,4 @@
+@import 'tailwindcss/utilities';
+
+@source '../../../../resources/views/**/*.blade.php';
+@source '../../../../app/**/*.php';
