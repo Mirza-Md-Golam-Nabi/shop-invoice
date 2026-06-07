@@ -16,8 +16,8 @@ class InvoicePdfController extends Controller
 
     private const PAGE_CONFIG = [
         'A5' => [
-            'maxLines' => 16,
-            'withDescription' => 10,
+            'maxLines' => 14,
+            'withDescription' => 9,
             'descBreaks' => [35, 70],
             'view' => 'filament.invoices.pdf-invoice-a5',
         ],
