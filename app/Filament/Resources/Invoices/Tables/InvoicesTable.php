@@ -17,6 +17,7 @@ class InvoicesTable
         return $table
             ->modifyQueryUsing(fn (Builder $query) => $query
                 ->whereBetween('date', [today()->subDay(), today()])
+                ->orderBy('id', 'desc')
             )
             ->columns([
                 TextColumn::make('customer_name')

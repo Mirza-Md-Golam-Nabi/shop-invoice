@@ -178,7 +178,7 @@
         </div>
 
         {{-- ── Signatures ── --}}
-        <table style="width:100%; margin-top:70px;" cellpadding="0" cellspacing="0">
+        <table style="width:100%; margin-top:40px;" cellpadding="0" cellspacing="0">
             <tr>
                 <td style="width:50%; font-size:12px;">
                     Receiver's Signature

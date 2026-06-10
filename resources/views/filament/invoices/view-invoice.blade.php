@@ -9,7 +9,7 @@
 
 {{-- PDF button --}}
 <form method="GET" action="{{ route('invoices.pdf', $record->id) }}" target="_blank"
-    class="flex flex-col sm:flex-row justify-end items-stretch sm:items-center gap-2 mb-4">
+    class="flex flex-row justify-end items-stretch sm:items-center gap-2 mb-4">
     <select name="page_size"
         class="border border-gray-300 rounded-md text-sm px-4 py-2 text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-[#1a237e]">
         <option value="A5" selected>A5</option>
@@ -199,7 +199,7 @@
 
         {{-- ── Footer: Signatures ── --}}
         <div class="border-t-[1.5px] border-[#1a237e] px-4 sm:px-6 pt-4 pb-5 flex justify-between items-end">
-            <div>
+            <div style="margin-top: 30px;">
                 <div class="border-t-2 border-[#111] w-28 sm:w-40 mb-1"></div>
                 <div class="text-[10.5px] sm:text-[11.5px] font-semibold text-[#333]">Client</div>
             </div>

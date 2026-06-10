@@ -16,8 +16,8 @@ class InvoicePdfController extends Controller
 
     private const PAGE_CONFIG = [
         'A5' => [
-            'maxLines' => 14,
-            'withDescription' => 9,
+            'maxLines' => 17,
+            'withDescription' => 11,
             'descBreaks' => [35, 70],
             'view' => 'filament.invoices.pdf-invoice-a5',
         ],
@@ -73,8 +73,8 @@ class InvoicePdfController extends Controller
             'fontdata' => (new FontVariables)->getDefaults()['fontdata'] + [
                 'solaimanlipi' => ['R' => 'SolaimanLipi.ttf', 'useOTL' => 0xFF],
             ],
-            'margin_top' => 10,
-            'margin_bottom' => 10,
+            'margin_top' => 5,
+            'margin_bottom' => 3,
             'margin_left' => 12,
             'margin_right' => 12,
             'default_font' => 'solaimanlipi',
