@@ -1,2 +1,5 @@
 @import 'tailwindcss';
-@source '../../resources/views/filament/invoices/pdf-invoice.blade.php';
+@source '../../resources/views/filament/invoices/pdf-invoice-a4.blade.php';
+@source '../../resources/views/filament/invoices/pdf-invoice-a5.blade.php';
+@source '../../resources/views/filament/quotations/pdf-quotation-a4.blade.php';
+@source '../../resources/views/filament/quotations/pdf-quotation-a5.blade.php';
