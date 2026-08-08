@@ -85,8 +85,8 @@
             <thead>
                 <tr>
                     <th style="width:8%; text-align:center; border:1px solid #333; padding:6px;">S.N</th>
-                    <th style="width:42%; text-align:left; border:1px solid #333; padding:6px;">Product Description</th>
-                    <th style="width:15%; text-align:center; border:1px solid #333; padding:6px;">Quantity</th>
+                    <th style="width:50%; text-align:left; border:1px solid #333; padding:6px;">Product Description</th>
+                    <th style="width:7%; text-align:center; border:1px solid #333; padding:6px;">Qty</th>
                     <th style="width:17%; text-align:center; border:1px solid #333; padding:6px;">Rate</th>
                     <th style="width:18%; text-align:center; border:1px solid #333; padding:6px;">Taka</th>
                 </tr>
@@ -101,7 +101,7 @@
                         <td style="border-left: 1px solid #333; border-right:1px solid #333; padding:6px;">
                             <div class="font-semibold text-[13px] text-[#111]">{{ $item->product?->name ?? '—' }}</div>
                             @if ($item->description && $item->description !== $item->product?->name)
-                                <div class="text-[11px] text-[#777] mt-0.5">{{ $item->description }}</div>
+                                <div class="text-[11px] text-[#333] mt-0.5">{{ $item->description }}</div>
                             @endif
                         </td>
                         <td
