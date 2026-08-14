@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Invoice;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Number;
 use Mpdf\Config\ConfigVariables;
 use Mpdf\Config\FontVariables;
@@ -29,7 +30,7 @@ class InvoicePdfController extends Controller
         ],
     ];
 
-    public function download(Request $request, Invoice $invoice): Response
+    public function download(Request $request, Invoice $invoice): RedirectResponse
     {
         $invoice->load('items.product');
 
@@ -40,9 +41,27 @@ class InvoicePdfController extends Controller
         $mpdf = $this->buildMpdf($pageSize);
         $mpdf->WriteHTML($this->renderView($invoice, $pageSize, $total, $inWord));
 
-        return response($mpdf->Output('', 'S'))
-            ->header('Content-Type', 'application/pdf')
-            ->header('Content-Disposition', 'inline; filename="'.$invoice->invoice_no.'.pdf"');
+        $relativePath = $this->storePdf($invoice, $mpdf);
+
+        return redirect(Storage::disk('public')->url($relativePath));
+    }
+
+    private function storePdf(Invoice $invoice, Mpdf $mpdf): string
+    {
+        $disk = Storage::disk('public');
+        $relativePath = 'invoices/'.$invoice->invoice_no.'.pdf';
+
+        if ($invoice->pdf_path && $disk->exists($invoice->pdf_path)) {
+            $disk->delete($invoice->pdf_path);
+        }
+
+        $disk->makeDirectory('invoices');
+
+        $mpdf->Output($disk->path($relativePath), 'F');
+
+        $invoice->update(['pdf_path' => $relativePath]);
+
+        return $relativePath;
     }
 
     private function resolvePageSize(Request $request): string
@@ -125,7 +144,7 @@ class InvoicePdfController extends Controller
     {
         try {
             $manifest = json_decode(
-                file_get_contents(public_path('build/.vite/manifest.json')),
+                file_get_contents(public_path('build/manifest.json')),
                 associative: true,
                 flags: JSON_THROW_ON_ERROR,
             );

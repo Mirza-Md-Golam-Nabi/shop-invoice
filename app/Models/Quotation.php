@@ -14,6 +14,7 @@ class Quotation extends Model
         'date',
         'subtotal',
         'discount',
+        'pdf_path',
     ];
 
     protected function casts(): array

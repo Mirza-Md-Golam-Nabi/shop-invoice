@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Quotation;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Number;
 use Mpdf\Config\ConfigVariables;
 use Mpdf\Config\FontVariables;
@@ -29,7 +30,7 @@ class QuotationPdfController extends Controller
         ],
     ];
 
-    public function download(Request $request, Quotation $quotation): Response
+    public function download(Request $request, Quotation $quotation): RedirectResponse
     {
         $quotation->load('items.product');
 
@@ -40,9 +41,27 @@ class QuotationPdfController extends Controller
         $mpdf = $this->buildMpdf($pageSize);
         $mpdf->WriteHTML($this->renderView($quotation, $pageSize, $total, $inWord));
 
-        return response($mpdf->Output('', 'S'))
-            ->header('Content-Type', 'application/pdf')
-            ->header('Content-Disposition', 'inline; filename="'.$quotation->quotation_no.'.pdf"');
+        $relativePath = $this->storePdf($quotation, $mpdf);
+
+        return redirect(Storage::disk('public')->url($relativePath));
+    }
+
+    private function storePdf(Quotation $quotation, Mpdf $mpdf): string
+    {
+        $disk = Storage::disk('public');
+        $relativePath = 'quotations/'.$quotation->quotation_no.'.pdf';
+
+        if ($quotation->pdf_path && $disk->exists($quotation->pdf_path)) {
+            $disk->delete($quotation->pdf_path);
+        }
+
+        $disk->makeDirectory('quotations');
+
+        $mpdf->Output($disk->path($relativePath), 'F');
+
+        $quotation->update(['pdf_path' => $relativePath]);
+
+        return $relativePath;
     }
 
     private function resolvePageSize(Request $request): string
@@ -125,7 +144,7 @@ class QuotationPdfController extends Controller
     {
         try {
             $manifest = json_decode(
-                file_get_contents(public_path('build/.vite/manifest.json')),
+                file_get_contents(public_path('build/manifest.json')),
                 associative: true,
                 flags: JSON_THROW_ON_ERROR,
             );

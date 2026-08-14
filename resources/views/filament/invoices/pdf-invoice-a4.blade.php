@@ -24,10 +24,10 @@
         <table style="width:100%;" cellpadding="0" cellspacing="0">
             <tr>
                 <td class="px-5 py-3" style="width:53%;">
-                    <div class="font-black text-[#fff] leading-none tracking-tight" style="font-size:30px;">Camera Ark
+                    <div class="font-black leading-none tracking-tight" style="font-size:30px;">Camera Ark
                     </div>
-                    <div class="text-[14px] font-bold text-[#c5cae9] mt-0.5 leading-tight">ক্যামেরা আর্ক</div>
-                    <div class="text-[9.5px] text-[#9fa8da] mt-1.5 leading-relaxed">Sony, Canon, Nikon, Fujifilm, Gopro,
+                    <div class="font-bold mt-0.5 leading-tight">ক্যামেরা আর্ক</div>
+                    <div class="mt-1.5 leading-relaxed">Sony, Canon, Nikon, Fujifilm, Gopro,
                         DJI, Sigma, Tamron, Viltrox, Sandisk, Rode, Godox</div>
                 </td>
                 <td style="width:9%;"></td>
@@ -58,7 +58,7 @@
                     <span style="font-weight: bold;">Invoice No. &nbsp;</span>
                     {{ $record->invoice_no }}
                 </td>
-                <td class="px-5 py-1.5 text-[12px] font-semibold text-[#1a237e]" style="width:33%; text-align:right;">
+                <td class="px-5 py-1.5 font-semibold" style="width:33%; text-align:right;">
                     <span style="font-weight: bold;">Date: &nbsp;</span>
                     {{ $record->date->format('d - M - Y') }}
                 </td>
@@ -75,7 +75,7 @@
                 </td>
                 <td class="px-5 py-2" style="width:50%; vertical-align:middle;">
                     <span style="font-weight: bold;">Address:</span>&nbsp;
-                    <span class="font-bold text-[13px] text-[#111]">{{ $record->customer_address ?? '' }}</span>
+                    <span class="font-bold">{{ $record->customer_address ?? '' }}</span>
                 </td>
             </tr>
         </table>
@@ -99,9 +99,9 @@
                             {{ $index + 1 }}
                         </td>
                         <td style="border-left: 1px solid #333; border-right:1px solid #333; padding:6px;">
-                            <div class="font-semibold text-[13px] text-[#111]">{{ $item->product?->name ?? '—' }}</div>
+                            <div class="font-semibold" style="font-size:13px;">{{ $item->product?->name ?? '—' }}</div>
                             @if ($item->description && $item->description !== $item->product?->name)
-                                <div class="text-[11px] text-[#333] mt-0.5">{{ $item->description }}</div>
+                                <div class="mt-0.5">{{ $item->description }}</div>
                             @endif
                         </td>
                         <td
