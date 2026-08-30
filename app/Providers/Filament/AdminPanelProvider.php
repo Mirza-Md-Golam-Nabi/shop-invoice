@@ -36,6 +36,7 @@ class AdminPanelProvider extends PanelProvider
             ->passwordReset()
             ->emailVerification()
             ->emailChangeVerification()
+            ->globalSearch(false)
             ->profile(isSimple: false)
             ->userMenuItems([
                 'profile' => fn (Action $action) => $action

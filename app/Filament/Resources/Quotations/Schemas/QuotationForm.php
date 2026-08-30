@@ -58,7 +58,7 @@ class QuotationForm
                                     ->numeric()
                                     ->default(1)
                                     ->minValue(1)
-                                    ->live()
+                                    ->live(debounce: 1000)
                                     ->afterStateUpdated(function (Get $get, Set $set) {
                                         $set('amount', round((float) $get('quantity') * (float) $get('rate'), 2));
                                         self::recalculateFromItem($get, $set);
@@ -70,7 +70,7 @@ class QuotationForm
                                     ->numeric()
                                     ->default(0)
                                     ->prefix('৳')
-                                    ->live()
+                                    ->live(debounce: 1000)
                                     ->afterStateUpdated(function (Get $get, Set $set) {
                                         $set('amount', round((float) $get('quantity') * (float) $get('rate'), 2));
                                         self::recalculateFromItem($get, $set);

@@ -27,7 +27,7 @@ class CreateInvoice extends CreateRecord
                 'description' => $item['description'] ?? '',
                 'quantity' => $item['quantity'],
                 'rate' => $item['rate'],
-                'amount' => $item['amount'],
+                'amount' => round((float) $item['quantity'] * (float) $item['rate'], 2),
             ]);
         }
 
